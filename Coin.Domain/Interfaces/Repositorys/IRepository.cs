@@ -1,10 +1,13 @@
-﻿using System;
+﻿using Coin.Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Coin.Domain.Interfaces
-{    public interface IBaseService<TEntity> : IDisposable where TEntity : class
+{
+    public interface IRepository<TEntity> : IDisposable where TEntity : Entity
     {
         Task Add(TEntity entity);
         Task<TEntity> GetById(Guid id);

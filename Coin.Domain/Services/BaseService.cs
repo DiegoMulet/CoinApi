@@ -1,60 +1,60 @@
-﻿using Coin.Application.Interfaces;
-using Coin.Domain.Interfaces;
+﻿using Coin.Domain.Interfaces;
+using Coin.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ons.Simons.Application
+namespace Coin.Domain.Services
 {
-    public class BaseAppService<TEntity> : IBaseAppService<TEntity> where TEntity : class
+    public class BaseService<TEntity> : IBaseService<TEntity> where TEntity : Entity
     {
-        private readonly IBaseService<TEntity> _serviceBase;
+        private readonly IRepository<TEntity> _repository;
 
-        public BaseAppService(IBaseService<TEntity> serviceBase)
+        public BaseService(IRepository<TEntity> repository)
         {
-            _serviceBase = serviceBase;
+            _repository = repository;
         }
 
         public async Task Add(TEntity entity)
         {
-            await _serviceBase.Add(entity);
+            await _repository.Add(entity);
         }
 
         public async Task Update(TEntity entity)
         {
-            await _serviceBase.Update(entity);
+            await _repository.Update(entity);
         }
 
         public async Task<IEnumerable<TEntity>> Search(Expression<Func<TEntity, bool>> predicate)
         {
-            return await _serviceBase.Search(predicate);
+            return await _repository.Search(predicate);
         }
 
         public void Dispose()
         {
-            _serviceBase.Dispose();
+            _repository.Dispose();
         }
 
         public async Task<TEntity> GetById(Guid id)
         {
-            return await _serviceBase.GetById(id);
+            return await _repository.GetById(id);
         }
 
         public async Task<List<TEntity>> GetAll()
         {
-            return await _serviceBase.GetAll();
+            return await _repository.GetAll();
         }
 
         public async Task Delete(Guid id)
         {
-            await _serviceBase.Delete(id);
+            await _repository.Delete(id);
         }
 
         public async Task<int> SaveChanges()
         {
-            return await _serviceBase.SaveChanges();
+            return await _repository.SaveChanges();
         }
     }
 }

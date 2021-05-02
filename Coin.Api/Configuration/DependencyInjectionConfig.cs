@@ -1,4 +1,11 @@
 ﻿using Coin.Api.Controllers;
+using Coin.Application.Interfaces;
+using Coin.Application.Services;
+using Coin.Data.Context;
+using Coin.Data.Repository;
+using Coin.Domain.Interfaces.Repositorys;
+using Coin.Domain.Interfaces.Services;
+using Coin.Domain.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -9,22 +16,11 @@ namespace Coin.Api.Configuration
     {
         public static IServiceCollection ResolveDependencies(this IServiceCollection services)
         {
-            //services.AddScoped<SimonsContext>();
+            services.AddScoped<CoinDbContext>();
 
-            //services.AddScoped<IEstacaoRepository, EstacaoRepository>();
-            //services.AddScoped<IEstacaoService, EstacaoService>();
-            //services.AddScoped<IEstacaoAppService, EstacaoAppService>();
-
-            //services.AddScoped<IMedicaoRepository, MedicaoRepository>();
-            //services.AddScoped<IMedicaoService, MedicaoService>();
-            //services.AddScoped<IMedicaoAppService, MedicaoAppService>();
-
-            //services.AddScoped<IMnemonicoRepository, MnemonicoRepository>();
-            //services.AddScoped<IMnemonicoService, MnemonicoService>();
-            //services.AddScoped<IMnemonicoAppService, MnemonicoAppService>();   
-
-            //services.AddScoped<IMnemonicoAppService, MnemonicoAppService>();
-
+            services.AddScoped<ICoinTypeRepository, CoinTypeRepository>();
+            services.AddScoped<ICoinTypeService, CoinTypeService>();
+            services.AddScoped<ICoinTypeAppService, CoinTypeAppService>();
 
             services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
 
